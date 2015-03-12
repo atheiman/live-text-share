@@ -1,0 +1,13 @@
+doctype html
+html(lang="en")
+  head
+    title Live Text Sharetitle
+    link(rel='stylesheet', href='/static/style.css')
+
+  body
+    h1 Live Text Share
+    textarea(id='textarea', autofocus, autocomplete="off"
+             onkeyup="textChange()", rows="10", cols="50")!= text
+
+    script(src="/socket.io/socket.io.js")
+    script(src="/static/client.js")
