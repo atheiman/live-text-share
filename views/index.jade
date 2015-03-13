@@ -7,7 +7,7 @@ html(lang="en")
   body
     //- h1 Live Text Share
     textarea(id='textarea', autocomplete="off", autofocus,
-             onkeypress="app.textChange()", rows="10", cols="50")!= text
+             onkeyup="app.textChange()", rows="10", cols="50")!= text
 
     script(src="/socket.io/socket.io.js")
     script(src="/static/app.js")
