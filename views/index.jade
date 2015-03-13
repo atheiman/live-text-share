@@ -1,13 +1,14 @@
 doctype html
 html(lang="en")
   head
-    title Live Text Sharetitle
+    title Live Text Share
     link(rel='stylesheet', href='/static/style.css')
 
   body
-    h1 Live Text Share
-    textarea(id='textarea', autofocus, autocomplete="off"
-             onkeyup="textChange()", rows="10", cols="50")!= text
+    //- h1 Live Text Share
+    textarea(id='textarea', autocomplete="off", autofocus,
+             onkeypress="app.textChange()", rows="10", cols="50")!= text
 
     script(src="/socket.io/socket.io.js")
+    script(src="/static/app.js")
     script(src="/static/client.js")

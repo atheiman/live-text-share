@@ -1,1 +1,4 @@
 /* Live Text Share CSS Stylesheet */
+textarea {
+    resize: none;
+}
