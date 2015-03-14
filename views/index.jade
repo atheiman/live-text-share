@@ -5,9 +5,9 @@ html(lang="en")
     link(rel='stylesheet', href='/static/style.css')
 
   body
-    //- h1 Live Text Share
+    //- h2 Live Text Share
     textarea(id='textarea', autocomplete="off", autofocus,
-             onkeyup="app.textChange()", rows="10", cols="50")!= text
+             onkeyup="app.textChange()", rows="8", cols="30")!= text
 
     script(src="/socket.io/socket.io.js")
     script(src="/static/app.js")

@@ -20,16 +20,22 @@ app.get('/', function (req, res) {
 
 
 io.on('connection', function(socket){
-  console.log('a user connected');
+  // connection
+  console.log("event: '%s', socket.id: '%s', socket.nsp.name: '%s'",
+              'connection', socket.id, socket.nsp.name);
+  socket.broadcast.emit('user connected');
 
+  // disconnect
   socket.on('disconnect', function(){
-    console.log('user disconnected');
+    console.log("event: '%s', socket.id: '%s'", 'disconnect', socket.id);
+    // socket.broadcast.emit('disconnect', socket.id);
   });
 
+  // text change
   socket.on('text change', function(text){
+    console.log("event: '%s', text: '%s'", 'text change', text);
     textGlobal = text;
-    io.emit('text change', text);
-    console.log('text changed to: ' + text);
+    socket.broadcast.emit('text change', text);
   });
 });
 
