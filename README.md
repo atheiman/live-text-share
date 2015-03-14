@@ -2,6 +2,8 @@
 
 Live edit text between multiple users.
 
+Example at http://austinheiman.com:3000
+
 ```shell
 $ npm install    # install dependencies into node_modules
 $ node index.js  # run the app, log to console
@@ -9,4 +11,3 @@ $ node index.js  # run the app, log to console
 # deploy (run in background, log to nohup.out):
 $ nohup nodejs index.js &
 ```
-
