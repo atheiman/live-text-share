@@ -24,22 +24,33 @@ function Logger() {
     // String level defaults to 'log'.
     // A date string and the level is prepended to the log entry.
     level = typeof level !== 'undefined' ? level : 'log';
-    args[0] = logger._getDateStr() + '\t' + level.toUpperCase() + '\t' + args[0];
-    console.log(args);
+    args[0] = [Logger.prototype._getDateStr(),
+               level.toUpperCase(),
+               args[0]].join('\t');
     console.log.apply(this, args);
   }
 
-  this.log = function (msg) {
+  this.log = function () {
+    this._asyncLog(Array.prototype.slice.call(arguments), 'log');
+  };
+  this.info = function () {
     var logFunc = this._log;
     var args = Array.prototype.slice.call(arguments);
-    setTimeout(function () { logger._log(args, 'log'); }, 0);
+    setTimeout(function () { logFunc.apply(this, [args, 'info']); }, 0);
   };
-  this.info = function (msg) {
-    this._asyncLog(Array.prototype.slice.call(arguments), 'info');
+  this.error = function () {
+    Logger.prototype._asyncLog(Array.prototype.slice.call(arguments), 'error');
   };
-  this.error = function (msg) {logger._asyncLog(msg, 'error');};
-  this.warn = function (msg) {logger._asyncLog(msg, 'warn');};
+  this.warn = function () {
+    var args = Array.prototype.slice.call(arguments);
+    setTimeout(function () {
+      Logger.prototype._log(args, 'warn');
+    }, 0);
+  };
 }
+
+Logger.prototype = new Logger();
+Logger.constructor = Logger;
 
 // module.exports = {
 //   LOG: function (msg) {_asyncLog(msg, 'log');},
@@ -50,6 +61,8 @@ function Logger() {
 
 var logger = new Logger();
 
-logger.log('this is a log');
-logger.info('this is some %s', 'info');
-logger.log('pass in a %s', 'var');
+logger.log('this is a basic log');
+logger.log('logs %s', 'use this._asyncLog');
+logger.info('infos use', 'setTimeout and this._log');
+logger.error('errors %s', 'use prototype._asyncLog');
+logger.warn('warnings use', 'setTimeout and prototype._log');
