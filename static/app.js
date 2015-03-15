@@ -1,8 +1,10 @@
 function App() {
   this.debug = function (msg) {
-    var hostnames = ['localhost', 'github.com', '127.0.0.1'];
-    if (hostnames.indexOf(location.hostname) !== -1)
-      console.log('DEBUG: ' + msg);
+    setTimeout(function () {
+      var hostnames = ['localhost', 'github.com', '127.0.0.1'];
+      if (hostnames.indexOf(location.hostname) !== -1)
+        console.log('DEBUG: ' + msg);
+    }, 0);
   };
 
   this.textarea = document.getElementById('textarea');
@@ -27,7 +29,7 @@ function App() {
 
   this.textChange = function () {
     // emit the textChange to all connected users
-    socket.emit('text change', app.textarea.value);
+    this.socket.emit('text change', app.textarea.value);
     app.debug('emit text change: ' + app.textarea.value);
   }
 
@@ -55,4 +57,8 @@ function App() {
     app.textarea.selectionStart = selectStart + selectChange;
     app.textarea.selectionEnd = selectEnd + selectChange;
   };
+
+  this.socket = io(location.host + location.pathname);
+  this.debug('joined namespace: ' + this.socket.nsp);
+  this.socket.on('text change', this.updateTextarea);
 }
