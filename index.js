@@ -15,7 +15,7 @@ var textGlobal = '';
 app.get('/', function (req, res) {
   var context = {text: textGlobal};
   res.render('index', context);
-  console.log('rendered index.jade with context ' + JSON.stringify(context));
+  console.log("rendered: '%s'", 'index.jade');
 });
 
 
@@ -33,7 +33,7 @@ io.on('connection', function(socket){
 
   // text change
   socket.on('text change', function(text){
-    console.log("event: '%s', text: '%s'", 'text change', text);
+    console.log("event: '%s'", 'text change');
     textGlobal = text;
     socket.broadcast.emit('text change', text);
   });
