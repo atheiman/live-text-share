@@ -2,7 +2,9 @@
 
 Live edit text between multiple users.
 
-Example at http://austinheiman.com:3000
+To see how it works, open up two tabs pointed at [an example room](http://austinheiman.com:3000/room-name-here). The URL pathname must be identical. Any browser at the same path as yours will be able to edit the text in your browser.
+
+
 
 ```shell
 $ npm install    # install dependencies into node_modules
